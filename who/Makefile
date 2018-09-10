@@ -1,13 +1,26 @@
-target = m_who
-source = m_who.c
+CC = gcc
 
-m_cp : $(source) build
-	gcc -g -o $(target) $(source);
-	mv *.dSYM build;
-	mv $(target) build;
-build :
-	mkdir build;
+SOURCEDIR = .
+BUILDDIR = build
+
+EXCUTABLE = $(BUILDDIR)/m_who
+SOURCES = $(wildcard $(SOURCEDIR)/*.c)
+OBJECTS = $(patsubst $(SOURCEDIR)/%.c,$(BUILDDIR)/%.o,$(SOURCES))
+
+all : $(EXCUTABLE) 
+
+$(EXCUTABLE) : $(OBJECTS)
+	$(CC) -o $(EXCUTABLE) $<
+
+$(OBJECTS) : | $(BUILDDIR)
+
+$(BUILDDIR) : 
+	mkdir $(BUILDDIR)
+
+$(BUILDDIR)/%.o : $(SOURCEDIR)/%.c
+	$(CC) -g -c $< -o $@
+
 .PHONY : clean
 clean :
-	rm -r build 
+	rm -r $(BUILDDIR)
 

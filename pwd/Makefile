@@ -3,7 +3,7 @@ CC = gcc
 SOURCEDIR = .
 BUILDDIR = build
 
-EXCUTABLE = $(BUILDDIR)/m_more02
+EXCUTABLE = $(BUILDDIR)/m_pwd
 SOURCES = $(wildcard $(SOURCEDIR)/*.c)
 OBJECTS = $(patsubst $(SOURCEDIR)/%.c,$(BUILDDIR)/%.o,$(SOURCES))
 
@@ -23,4 +23,3 @@ $(BUILDDIR)/%.o : $(SOURCEDIR)/%.c
 .PHONY : clean
 clean :
 	rm -r $(BUILDDIR)
-
